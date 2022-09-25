@@ -22,8 +22,8 @@ class MainActivity : ComponentActivity() {
             }
         }
         GlobalScope.launch {
-            delay(3000L)
-            startActivity(Intent(this@MainActivity, HomeScreen::class.java))
+            delay(4000L)
+            startActivity(Intent(this@MainActivity, OnBoardingScreen::class.java))
             finish()
         }
     }
