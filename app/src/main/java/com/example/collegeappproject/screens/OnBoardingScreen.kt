@@ -16,26 +16,18 @@ import com.example.collegeappproject.utils.ViewPagerUi
 
 class OnBoardingScreen : ComponentActivity() {
 
-    lateinit var car;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UtilsFunctions.actionBarRemove(window)
         setContent {
             CollegeAppProjectTheme {
 
-                car = 
 
-                ViewPagerUi(this)
-
-
-                val c
             }
         }
     }
 }
 
-data class(val name:String,val car :Car){
 
-
-}
 
