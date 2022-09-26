@@ -3,6 +3,8 @@ package com.example.collegeappproject.models
 import androidx.annotation.DrawableRes
 import com.example.collegeappproject.R
 
+
+//this is the model of ViewPagerItem
 data class ViewPagerModel(
     @DrawableRes
     val image :Int,

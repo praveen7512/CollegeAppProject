@@ -23,6 +23,7 @@ class OnBoardingScreen : ComponentActivity() {
         setContent {
             CollegeAppProjectTheme {
 
+                ViewPagerUi(this)
 
             }
         }
