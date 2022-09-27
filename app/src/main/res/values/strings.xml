@@ -2,4 +2,6 @@
     <string name="app_name">CollegeAppProject</string>
     <string name="title_activity_home_screen">HomeScreen</string>
     <string name="title_activity_on_boarding_screen">OnBoardingScreen</string>
+    <string name="title_activity_login_sign_up_welcome">LoginSignUpWelcome</string>
+    <string name="title_activity_login_screen">LoginScreen</string>
 </resources>

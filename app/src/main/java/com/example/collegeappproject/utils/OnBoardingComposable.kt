@@ -3,6 +3,7 @@ package com.example.collegeappproject.utils
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import com.example.collegeappproject.models.ViewPagerModel
 import com.example.collegeappproject.screens.HomeScreen
+import com.example.collegeappproject.screens.LoginSignUpWelcome
 import com.example.collegeappproject.screens.OnBoardingScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -59,11 +61,21 @@ fun ViewPagerUi(context: Context){
 
         AnimatedVisibility(visible = pageState.currentPage == 2,
             modifier = Modifier.align(Alignment.CenterHorizontally)) {
-            Button(onClick = {
+            Button(
+                onClick = {
 
-                val bundle = Bundle()
-                startActivity(context, Intent(context, HomeScreen::class.java),bundle)
-            }, ) {
+                    try {
+                        val bundle = Bundle()
+                        startActivity(
+                            context,
+                            Intent(context, LoginSignUpWelcome::class.java),
+                            bundle
+                        )
+                    } catch (e: Exception) {
+                        Log.d("kotlin", "ViewPagerUi:${e.toString()} ")
+                    }
+                },
+            ) {
                 Text(text = "Getting Started")
             }
         }

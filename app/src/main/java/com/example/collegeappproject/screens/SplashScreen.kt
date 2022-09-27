@@ -2,6 +2,7 @@ package com.example.collegeappproject.screens
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.collegeappproject.ui.theme.CollegeAppProjectTheme
@@ -22,9 +23,13 @@ class MainActivity : ComponentActivity() {
             }
         }
         GlobalScope.launch {
-            delay(4000L)
-            startActivity(Intent(this@MainActivity, OnBoardingScreen::class.java))
-            finish()
+            try {
+                delay(4000L)
+                startActivity(Intent(this@MainActivity, OnBoardingScreen::class.java))
+                finish()
+            } catch (e: Exception) {
+                Log.d("kotlin", "onCreate: ${e.toString()}")
+            }
         }
     }
 }
