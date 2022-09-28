@@ -1,24 +1,15 @@
-package com.example.collegeappproject.screens
+package com.example.collegeappproject
 
-import android.content.Context
-import android.content.Intent
-import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -29,29 +20,32 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
-import com.example.collegeappproject.LoginScreenTwo
-import com.example.collegeappproject.R
+import com.example.collegeappproject.screens.ImageCircleVector
+import com.example.collegeappproject.screens.TextInputField
 import com.example.collegeappproject.ui.theme.CollegeAppProjectTheme
 import com.example.collegeappproject.ui.theme.LightSkyBlue
 import com.example.collegeappproject.ui.theme.SkyBlue
 import com.example.collegeappproject.utils.UtilsFunctions
 
-class LoginScreen : ComponentActivity() {
+class LoginScreenTwo : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UtilsFunctions.actionBarRemove(window)
+
+//        UtilsFunctions.actionBarRemove(window)
+
+
         setContent {
             CollegeAppProjectTheme {
 
-                LoginScreenFun(this)
+                UtilsFunctions.transparentActionBar()
+          LoginScreenTwoFun()
             }
         }
     }
 }
-
+@Preview(group="Test")
 @Composable
-fun LoginScreenFun(context: Context){
+fun LoginScreenTwoFun(){
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)){
@@ -64,7 +58,7 @@ fun LoginScreenFun(context: Context){
 //            verticalArrangement = Arrangement.SpaceEvenly
         ){
 
-            Text(modifier = Modifier.fillMaxWidth(),text ="Sign Up",
+            Text(modifier = Modifier.fillMaxWidth(),text ="Login Now",
                 style = TextStyle(
 
                     fontSize = 30.sp,
@@ -77,7 +71,7 @@ fun LoginScreenFun(context: Context){
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            Text(text = "Please Register with email and signup to continue using our app ",
+            Text(text = "Please Login to continue using our app ",
                 style = TextStyle(
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Light,
@@ -133,11 +127,21 @@ fun LoginScreenFun(context: Context){
 
             TextInputField("Username" )
             Spacer(modifier = Modifier.height(30.dp))
-            TextInputField("Email")
-            Spacer(modifier = Modifier.height(30.dp))
             TextInputField("Password")
-            
             Spacer(modifier = Modifier.height(30.dp))
+            Text(text = "Forgot Password?",
+                style = TextStyle(
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Light,
+//                    color = Color.LightGray
+                textAlign = TextAlign.End
+
+                ),
+                modifier = Modifier.fillMaxWidth()
+
+
+            )
+            Spacer(modifier = Modifier.height(20.dp))
 
             Button(
                 onClick = { /*TODO*/ },colors = ButtonDefaults.buttonColors(backgroundColor = LightSkyBlue),
@@ -146,32 +150,25 @@ fun LoginScreenFun(context: Context){
                     .fillMaxWidth()
                     .size(50.dp),
             ) {
-                Text(text = "Sign Up",style = TextStyle(
+                Text(text = "Login",style = TextStyle(
                     fontSize = 17.sp, color = Color.White,
                     fontWeight = FontWeight.Bold
                 )
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(buildAnnotatedString {
 
-                append("You already have an account ?  ")
+                append("Dont have an account ?  ")
                 withStyle(SpanStyle(color = SkyBlue)) {
-                    append ("Login")
+                    append ("Sign Up")
                 }
 
 
 
 
-            }, modifier = Modifier.clickable {
-                val bundle3 = Bundle()
-                ContextCompat.startActivity(
-                    context,
-                    Intent(context, LoginScreenTwo::class.java),
-                    bundle3
-                )
             })
 
 
@@ -179,30 +176,3 @@ fun LoginScreenFun(context: Context){
     }
 }
 
-@Composable
-fun TextInputField(hint :String){
-
-    var name by remember{
-        mutableStateOf("")
-    }
-
-    TextField(
-        value = name,
-        onValueChange = {
-            name = it
-        },
-        label = { Text(text = hint) },
-        modifier = Modifier
-            .background(Color.White)
-            .shadow(10.dp, shape = RoundedCornerShape(10))
-            .fillMaxWidth(),
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            focusedIndicatorColor = Color.White,
-            unfocusedIndicatorColor = Color.White
-
-            ),
-
-
-        )
-}

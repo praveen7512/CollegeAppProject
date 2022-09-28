@@ -1,5 +1,7 @@
 package com.example.collegeappproject.screens
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Space
 import androidx.activity.ComponentActivity
@@ -30,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.example.collegeappproject.R
 import com.example.collegeappproject.ui.theme.CollegeAppProjectTheme
 import com.example.collegeappproject.ui.theme.LightSkyBlue
@@ -43,15 +46,15 @@ class LoginSignUpWelcome : ComponentActivity() {
         UtilsFunctions.actionBarRemove(window)
         setContent {
             CollegeAppProjectTheme {
-                // A surface container using the 'background' color from the theme
-           LoginSignUpWelcomeScreen()
+
+           LoginSignUpWelcomeScreen(this)
             }
         }
     }
 }
 
 @Composable
-fun LoginSignUpWelcomeScreen(){
+fun LoginSignUpWelcomeScreen(context:Context){
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)) {
@@ -62,7 +65,7 @@ fun LoginSignUpWelcomeScreen(){
                 .background(Color.White),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-              Spacer(modifier = Modifier.height(40.dp))
+
               Text(modifier = Modifier.fillMaxWidth(),text ="Welcome",
                   style = TextStyle(
 
@@ -168,7 +171,10 @@ fun LoginSignUpWelcomeScreen(){
 
 
             }, modifier = Modifier
-                .clickable { }
+                .clickable {
+                    val bundle1 = Bundle()
+                    startActivity(context,Intent(context, LoginScreen::class.java),bundle1)
+                }
                 .fillMaxWidth(), style = TextStyle(
                 fontWeight = FontWeight.Bold,
                 fontSize = 15.sp,
