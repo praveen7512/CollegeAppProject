@@ -2,20 +2,13 @@ package com.example.collegeappproject.screens
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,10 +26,11 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
-
 import com.example.collegeappproject.R
 import com.example.collegeappproject.features.firebaseAuth.AuthViewModel
 import com.example.collegeappproject.models.AuthUser
+import com.example.collegeappproject.screens.ImageCircleVector
+import com.example.collegeappproject.screens.TextInputField
 import com.example.collegeappproject.ui.theme.CollegeAppProjectTheme
 import com.example.collegeappproject.ui.theme.LightSkyBlue
 import com.example.collegeappproject.ui.theme.SkyBlue
@@ -48,21 +42,26 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginScreen : ComponentActivity() {
+class LoginScreenTwo : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UtilsFunctions.actionBarRemove(window)
+
+//        UtilsFunctions.actionBarRemove(window)
+
+
         setContent {
             CollegeAppProjectTheme {
 
-                LoginScreenFun(this)
+                UtilsFunctions.transparentActionBar()
+
+                 LoginScreenTwoFun(this)
             }
         }
     }
 }
 
 @Composable
-fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel()){
+fun LoginScreenTwoFun(context : Context, authViewModel :AuthViewModel = hiltViewModel()){
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)){
@@ -75,7 +74,7 @@ fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel(
 //            verticalArrangement = Arrangement.SpaceEvenly
         ){
 
-            Text(modifier = Modifier.fillMaxWidth(),text ="Sign Up",
+            Text(modifier = Modifier.fillMaxWidth(),text ="Login Now",
                 style = TextStyle(
 
                     fontSize = 30.sp,
@@ -88,7 +87,7 @@ fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel(
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            Text(text = "Please Register with email and signup to continue using our app ",
+            Text(text = "Please Login to continue using our app ",
                 style = TextStyle(
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Light,
@@ -142,9 +141,10 @@ fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel(
                 ) )
             Spacer(modifier = Modifier.height(30.dp))
 
+
             Column(modifier = Modifier.fillMaxWidth(),
-                 verticalArrangement = Arrangement.SpaceEvenly
-                ) {
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
                 var email by remember{
                     mutableStateOf("")
                 }
@@ -154,7 +154,6 @@ fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel(
                 }
 
                 var scope = rememberCoroutineScope()
-
 
                 var isDialog by remember {
                     mutableStateOf(false)
@@ -203,30 +202,51 @@ fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel(
 
 
                     )
-                Spacer(modifier = Modifier.height(30.dp))
-                TextInputField("Password")
+
 
                 Spacer(modifier = Modifier.height(30.dp))
+
+
+                Spacer(modifier = Modifier.height(30.dp))
+                Text(text = "Forgot Password?",
+                    style = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Light,
+//                    color = Color.LightGray
+                        textAlign = TextAlign.End
+
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+
+
+                )
+                Spacer(modifier = Modifier.height(20.dp))
 
                 Button(
                     onClick = {
 
                               scope.launch(Dispatchers.Main) {
-
-                                  authViewModel.singUpUser(AuthUser(
-
+                                  authViewModel.loginInUser(
+                                      AuthUser(
                                       email, password
                                   )
                                   ).collect{
 
-                                    isDialog=  when(it){
+                                     isDialog = when(it){
 
-                                         is ResultState.Success->{
+                                          is ResultState.Success->{
 
-                                             startActivity(context, Intent(context, HomeScreen::class.java),Bundle())
+                                              startActivity(
+                                                  context,
+                                                  Intent(context, HomeScreen::class.java),
+                                                  Bundle()
+                                              )
                                               false
-                                         }
+
+
+                                          }
                                           is ResultState.Loading->{
+
                                              true
                                           }
                                           is ResultState.Failure->{
@@ -235,52 +255,44 @@ fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel(
                                           }
 
                                       }
-
-
-
                                   }
-
-
                               }
+
+
+
                     },colors = ButtonDefaults.buttonColors(backgroundColor = LightSkyBlue),
                     shape = RoundedCornerShape(10),
                     modifier = Modifier
                         .fillMaxWidth()
                         .size(50.dp),
                 ) {
-                    Text(text = "Sign Up",style = TextStyle(
+                    Text(text = "Login",style = TextStyle(
                         fontSize = 17.sp, color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
                     )
                 }
-            }
-            
 
-            
+
+            }
+
+
+
+
+
+
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(buildAnnotatedString {
 
-                append("You already have an account ?  ")
+                append("Dont have an account ?  ")
                 withStyle(SpanStyle(color = SkyBlue)) {
-                    append ("Login")
+                    append ("Sign Up")
                 }
 
 
 
 
-            }, modifier = Modifier.clickable {
-                val bundle3 = Bundle()
-                try {
-                    startActivity(
-                        context,
-                        Intent(context, LoginScreenTwo::class.java),
-                        bundle3
-                    )
-                } catch (e: Exception) {
-                    Log.d("error", "${e.toString()}")
-                }
             })
 
 
@@ -288,31 +300,3 @@ fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel(
     }
 }
 
-@Composable
-fun TextInputField(hint :String){
-
-     var name by remember {
-         mutableStateOf("")
-     }
-
-
-    TextField(
-        value = name,
-        onValueChange = {
-            name = it
-        },
-        label = { Text(text = hint) },
-        modifier = Modifier
-            .background(Color.White)
-            .shadow(10.dp, shape = RoundedCornerShape(10))
-            .fillMaxWidth(),
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            focusedIndicatorColor = Color.White,
-            unfocusedIndicatorColor = Color.White
-
-            ),
-
-
-        )
-}

@@ -3,6 +3,7 @@ package com.example.collegeappproject.screens
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -172,8 +173,12 @@ fun LoginSignUpWelcomeScreen(context:Context){
 
             }, modifier = Modifier
                 .clickable {
-                    val bundle1 = Bundle()
-                    startActivity(context,Intent(context, LoginScreen::class.java),bundle1)
+                    try {
+                        val bundle1 = Bundle()
+                        startActivity(context, Intent(context, LoginScreen::class.java), bundle1)
+                    } catch (e: Exception) {
+                        Log.d("error", "${e.toString()}")
+                    }
                 }
                 .fillMaxWidth(), style = TextStyle(
                 fontWeight = FontWeight.Bold,
