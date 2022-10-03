@@ -20,8 +20,4 @@ object FireBaseModule {
     fun provideAuth() :FirebaseAuth = Firebase.auth
 
 
-
-
-
-
 }

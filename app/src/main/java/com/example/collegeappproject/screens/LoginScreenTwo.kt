@@ -7,7 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -253,6 +255,9 @@ fun LoginScreenTwoFun(context : Context, authViewModel :AuthViewModel = hiltView
 
                                               false
                                           }
+                                         is ResultState.Empty->{
+                                             false
+                                         }
 
                                       }
                                   }

@@ -7,11 +7,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -36,6 +39,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 import com.example.collegeappproject.R
 import com.example.collegeappproject.features.firebaseAuth.AuthViewModel
+import com.example.collegeappproject.features.webScrapping.WebScrapingViewModel
 import com.example.collegeappproject.models.AuthUser
 import com.example.collegeappproject.ui.theme.CollegeAppProjectTheme
 import com.example.collegeappproject.ui.theme.LightSkyBlue
@@ -49,9 +53,13 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginScreen : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UtilsFunctions.actionBarRemove(window)
+
+
         setContent {
             CollegeAppProjectTheme {
 
@@ -64,6 +72,7 @@ class LoginScreen : ComponentActivity() {
 @Composable
 fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel()){
     Scaffold(modifier = Modifier
+        .verticalScroll(rememberScrollState())
         .fillMaxSize()
         .background(Color.White)){
         Column(
@@ -233,8 +242,13 @@ fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel(
 
                                               false
                                           }
+                                         is ResultState.Empty->{
+                                             false
+                                         }
 
-                                      }
+
+
+                                    }
 
 
 

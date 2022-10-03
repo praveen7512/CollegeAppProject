@@ -7,9 +7,7 @@ import android.util.Log
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -57,6 +55,7 @@ class LoginSignUpWelcome : ComponentActivity() {
 @Composable
 fun LoginSignUpWelcomeScreen(context:Context){
     Scaffold(modifier = Modifier
+        .verticalScroll(rememberScrollState())
         .fillMaxSize()
         .background(Color.White)) {
         Column(
@@ -175,7 +174,7 @@ fun LoginSignUpWelcomeScreen(context:Context){
                 .clickable {
                     try {
                         val bundle1 = Bundle()
-                        startActivity(context, Intent(context, LoginScreen::class.java), bundle1)
+                        startActivity(context, Intent(context, HomeScreen::class.java), bundle1)
                     } catch (e: Exception) {
                         Log.d("error", "${e.toString()}")
                     }

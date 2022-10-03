@@ -1,5 +1,6 @@
 package com.example.collegeappproject.di
 
+import com.example.collegeappproject.features.webScrapping.WebScrapingApi
 import com.example.collegeappproject.features.webScrapping.WebScrappingRepo
 import dagger.Module
 import dagger.Provides
@@ -25,6 +26,8 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideWebRepoInstance(retrofit: Retrofit)= retrofit
-        .create(WebScrappingRepo::class.java)
+        .create(WebScrapingApi::class.java)
+
+
 
 }
