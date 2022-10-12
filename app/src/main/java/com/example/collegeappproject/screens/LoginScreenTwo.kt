@@ -38,6 +38,8 @@ import com.example.collegeappproject.ui.theme.LightSkyBlue
 import com.example.collegeappproject.ui.theme.SkyBlue
 import com.example.collegeappproject.utils.ResultState
 import com.example.collegeappproject.utils.UtilsFunctions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -49,6 +51,7 @@ class LoginScreenTwo : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
 //        UtilsFunctions.actionBarRemove(window)
+        UtilsFunctions.currentUserCheck(this,this)
 
 
         setContent {

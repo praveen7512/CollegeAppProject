@@ -2,6 +2,8 @@ package com.example.collegeappproject.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
@@ -18,6 +20,10 @@ object FireBaseModule {
     @Singleton
     @Provides
     fun provideAuth() :FirebaseAuth = Firebase.auth
+
+    @Singleton
+    @Provides
+    fun provideFireStore() :FirebaseFirestore = Firebase.firestore
 
 
 }

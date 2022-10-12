@@ -1,5 +1,6 @@
 package com.example.collegeappproject.screens
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Icon
@@ -46,6 +47,8 @@ import com.example.collegeappproject.ui.theme.LightSkyBlue
 import com.example.collegeappproject.ui.theme.SkyBlue
 import com.example.collegeappproject.utils.ResultState
 import com.example.collegeappproject.utils.UtilsFunctions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -58,6 +61,8 @@ class LoginScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UtilsFunctions.actionBarRemove(window)
+
+        UtilsFunctions.currentUserCheck(this,this)
 
 
         setContent {
@@ -72,7 +77,6 @@ class LoginScreen : ComponentActivity() {
 @Composable
 fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel()){
     Scaffold(modifier = Modifier
-        .verticalScroll(rememberScrollState())
         .fillMaxSize()
         .background(Color.White)){
         Column(
@@ -232,7 +236,9 @@ fun LoginScreenFun(context: Context,authViewModel: AuthViewModel= hiltViewModel(
 
                                          is ResultState.Success->{
 
-                                             startActivity(context, Intent(context, HomeScreen::class.java),Bundle())
+                                             context.startActivity(Intent(context, HomeScreen::class.java))
+
+
                                               false
                                          }
                                           is ResultState.Loading->{

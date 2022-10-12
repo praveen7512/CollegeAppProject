@@ -1,32 +1,86 @@
 package com.example.collegeappproject.utils
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.isVisible
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.airbnb.lottie.compose.*
 import com.example.collegeappproject.R
+import com.example.collegeappproject.models.NotesModel
 import com.example.collegeappproject.models.NoticeModel
+import com.example.collegeappproject.screens.HomeScreen
+import com.example.collegeappproject.screens.WebViewScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
 
 object UtilsFunctions {
 
 
+    @Composable
+    fun WebViewUrl(url :String){
 
+
+
+
+        AndroidView(factory = {
+
+            WebView(it).apply {
+
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                webViewClient = WebViewClient()
+                loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=${url}")
+
+
+            }
+        }, update = {
+
+            it.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=${url}")
+        })
+    }
+
+
+    fun currentUserCheck(context: Context,activity: Activity){
+        if (Firebase.auth.currentUser != null)
+        {
+            val i =Intent(context, HomeScreen::class.java)
+            context.startActivity(i)
+
+
+        }
+    }
     fun actionBarRemove(window : Window){
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -35,22 +89,30 @@ object UtilsFunctions {
 
 
     @Composable
-    fun EachRow(noticeModel: NoticeModel) {
-        Spacer(modifier = Modifier.height(10.dp))
-        Row(modifier = Modifier.clickable {
+    fun EachRow(noticeModel: NoticeModel,context: Context) {
 
-        }
+      val navigator = LocalNavigator.currentOrThrow
+
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(modifier = Modifier
+            .clickable {
+
+                navigator.push(WebViewScreen(noticeModel.noticeLink))
+
+            }
             .padding(4.dp)
             .background(Color.White)
-            .fillMaxWidth().border(width =1.dp,shape = RoundedCornerShape(10),color=Color.LightGray)
+            .fillMaxWidth()
+            .border(width = 1.dp, shape = RoundedCornerShape(10), color = Color.LightGray)
             ,
             verticalAlignment = Alignment.CenterVertically) {
             Image(
                 painter = painterResource(id = R.drawable.undraw_newspaper_icon),
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.border(1.dp, Color.Gray, shape = RoundedCornerShape(10)).
-                     size(84.dp)
+                modifier = Modifier
+                    .border(1.dp, Color.Gray, shape = RoundedCornerShape(10))
+                    .size(84.dp)
                     .background(Color.White)
                     .padding(20.dp)
 
@@ -114,4 +176,59 @@ object UtilsFunctions {
 
     }
 
+
+    @Composable
+    fun EachRow2(notesModel: NotesModel) {
+
+        val navigator = LocalNavigator.currentOrThrow
+
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(modifier = Modifier
+            .clickable {
+
+                navigator.push(WebViewScreen(notesModel.item?.link.toString()))
+
+            }
+            .padding(4.dp)
+            .background(Color.White)
+            .fillMaxWidth()
+            .border(width = 1.dp, shape = RoundedCornerShape(10), color = Color.LightGray)
+            ,
+            verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(id = R.drawable.undraw_newspaper_icon),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .border(1.dp, Color.Gray, shape = RoundedCornerShape(10))
+                    .size(84.dp)
+                    .background(Color.White)
+                    .padding(20.dp)
+
+            )
+
+
+
+            Text(notesModel.item?.name!!,
+                modifier = Modifier
+                    .background(
+                        Color.White
+
+                    )
+                    .padding(start = 10.dp))
+
+        }
+
+    }
+
+
+
+
+}
+
+fun GetUrlFromIntent(view: View?,context :Context,url :String) {
+
+    val i = Intent(Intent.ACTION_VIEW)
+    i.data = Uri.parse(url)
+    context.startActivity(i)
 }

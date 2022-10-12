@@ -38,15 +38,18 @@ import com.example.collegeappproject.ui.theme.LightSkyBlue
 import com.example.collegeappproject.ui.theme.SkyBlue
 import com.example.collegeappproject.utils.UtilsFunctions
 
+
+
 class LoginSignUpWelcome : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         UtilsFunctions.actionBarRemove(window)
+        UtilsFunctions.currentUserCheck(this,this)
         setContent {
             CollegeAppProjectTheme {
 
-           LoginSignUpWelcomeScreen(this)
+                LoginSignUpWelcomeScreen(this)
             }
         }
     }
@@ -55,7 +58,6 @@ class LoginSignUpWelcome : ComponentActivity() {
 @Composable
 fun LoginSignUpWelcomeScreen(context:Context){
     Scaffold(modifier = Modifier
-        .verticalScroll(rememberScrollState())
         .fillMaxSize()
         .background(Color.White)) {
         Column(
@@ -174,7 +176,7 @@ fun LoginSignUpWelcomeScreen(context:Context){
                 .clickable {
                     try {
                         val bundle1 = Bundle()
-                        startActivity(context, Intent(context, HomeScreen::class.java), bundle1)
+                        startActivity(context, Intent(context, LoginScreenTwo::class.java), bundle1)
                     } catch (e: Exception) {
                         Log.d("error", "${e.toString()}")
                     }

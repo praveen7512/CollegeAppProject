@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import cafe.adriel.voyager.navigator.Navigator
 import com.example.collegeappproject.R
 import com.example.collegeappproject.features.webScrapping.WebScrapingViewModel
 import com.example.collegeappproject.models.NoticeModel
@@ -41,6 +43,7 @@ import com.example.collegeappproject.utils.ResultState
 import com.example.collegeappproject.utils.UtilsFunctions
 import com.example.collegeappproject.utils.ViewPagerUi
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeScreen : ComponentActivity() {
@@ -65,7 +68,7 @@ class HomeScreen : ComponentActivity() {
 
 //                    DashBoardScreen()
 
-                    NoticeScreen()
+                    Navigator(screen = DashBoardScreen(this))
                 }
 
             }
@@ -78,7 +81,9 @@ class HomeScreen : ComponentActivity() {
 
 
 @Composable
-fun TopAppBarCreated(){
+fun TopAppBarCreated(scaffoldState: ScaffoldState){
+
+    val scope = rememberCoroutineScope()
 
     TopAppBar(
         modifier = Modifier.background(Color.Transparent),
@@ -91,7 +96,9 @@ fun TopAppBarCreated(){
             )
         },
         navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { scope.launch {
+                scaffoldState.drawerState.open()
+            } }) {
                 Icon(Icons.Filled.Menu,"Menu Icon")
             }
             //composable function for leading icon
