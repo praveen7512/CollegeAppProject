@@ -114,7 +114,7 @@ class DashBoardScreen(context: Context) :Screen {
                     CardViewDashBoard(R.drawable.icons_task,"Assignment",AssignmentScreen)
                     Spacer(modifier = Modifier.width(20.dp))
 
-                    CardViewDashBoard(R.drawable.icons_news,"Syllabus",SyllabusScreen)
+                    CardViewDashBoard(R.drawable.icons_news,"Syllabus",NotesScreen)
                     Spacer(modifier = Modifier.width(20.dp))
 
 
