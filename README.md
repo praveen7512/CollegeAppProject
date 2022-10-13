@@ -1,6 +1,6 @@
  ## MSIT App 📰
 
-🚀 ▪️  Newzy is a personalised news aggregator that organises and highlights what’s happening in the world so that you can discover more about the stories that matter to you.
+🚀 ▪️ The Msit College mobile app allows you to manage your studies, view current courses with details, register for exams, display
 
 ## ScreenShots 📷
 
