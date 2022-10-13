@@ -10,3 +10,10 @@ data class WebViewScreen(val url:String) :Screen {
         UtilsFunctions.WebViewUrl(url = url)
     }
 }
+
+data class WebViewScreenNotes(val url :String) :Screen {
+    @Composable
+    override fun Content() {
+       UtilsFunctions.WebViewUrl2(url = url)
+    }
+}

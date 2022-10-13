@@ -55,9 +55,20 @@ class DashBoardScreen(context: Context) :Screen {
                                         .fillMaxSize(0.3f),
                                     painter = painterResource(
                                         id = R.drawable.undraw_portfolio_update_), contentDescription ="" )
-                                Text("Maharaja Surajmal Institute is a private college located in Janakpuri, New Delhi, India.[1] The college is affiliated to Guru Gobind Singh Indraprastha University (GGSIPU) and s offering course BBA(G), BBA(B&I), BCA, BTECH, BCOM, B.Ed., running in morning and evening shifts.")
-                                Text(text = "${Firebase.auth.currentUser?.email.toString()}",
+                                Text("Maharaja Surajmal Institute is a private college located in Janakpuri, New Delhi, India.[1] The college is affiliated to Guru Gobind Singh Indraprastha University (GGSIPU) and s offering course BBA(G), BBA(B&I), BCA, BTECH, BCOM, B.Ed., running in morning and evening shifts."
+                                  , modifier = Modifier.padding(5.dp), textAlign = TextAlign.Center,
+                                    style = TextStyle(
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
 
+                                )
+                                Text(text = "Logout",
+                                    textAlign = TextAlign.Center,
+                                    style = TextStyle(
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    ),
                                     modifier = Modifier.clickable {
                                         try {
 

@@ -38,6 +38,7 @@ import com.example.collegeappproject.models.NotesModel
 import com.example.collegeappproject.models.NoticeModel
 import com.example.collegeappproject.screens.HomeScreen
 import com.example.collegeappproject.screens.WebViewScreen
+import com.example.collegeappproject.screens.WebViewScreenNotes
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -68,6 +69,31 @@ object UtilsFunctions {
         }, update = {
 
             it.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=${url}")
+        })
+    }
+
+    @Composable
+    fun WebViewUrl2(url :String){
+
+
+
+
+        AndroidView(factory = {
+
+            WebView(it).apply {
+
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                webViewClient = WebViewClient()
+                loadUrl(url)
+
+
+            }
+        }, update = {
+
+            it.loadUrl(url)
         })
     }
 
@@ -186,7 +212,7 @@ object UtilsFunctions {
         Row(modifier = Modifier
             .clickable {
 
-                navigator.push(WebViewScreen(notesModel.item?.link.toString()))
+                navigator.push(WebViewScreenNotes(notesModel.item?.link.toString()))
 
             }
             .padding(4.dp)
