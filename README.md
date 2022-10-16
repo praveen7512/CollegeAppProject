@@ -1,6 +1,6 @@
  ## MSIT App 📰
 
-🚀 ▪️ The Msit College mobile app allows you to manage your studies, view current courses with details, register for exams, display
+🚀 ▪️ The Msit College mobile app allows you to manage your studies, view current courses with details, register for exams, display.
 
 ## ScreenShots 📷
 
